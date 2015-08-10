@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HOMICIDIOS EM SALVADOR</title>
+
+	<script type="text/javascript" src="tools/jquery-2.0.2.min.js"></script> 
+	<script type="text/javascript" src="tools/jquery-ui.js"></script> 
+	<script type="text/javascript" src="tools/d3.min.js"></script> 
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+
+    <link rel="stylesheet" type="text/css" href="homicidios.css"> 
+	<script type="text/javascript" src="homicidios.js" charset="UTF-8"></script>  
+
+</head> 
+<body> 
+	 
+	<div class="barra" id="topo">
+		<div id="campo_topo_esq" class="campo_topo">
+			<div class="bt_topo bt" id="logo">
+				<div class="lb1" >HOMICÍDIOS EM</div>
+				<div class="lb2" >SALVADOR</div>
+			</div>
+			<div class="bt_topo bt" id="topo_local">				
+				<div class="lb1" >LOCAL</div>
+				<div class="lb2" ><span id="topo_local1" >GRANDE SALVADOR</span></div>
+			</div> 
+		</div> 		
+		<div class="bt_sexo bt" id="topo_sexo_f">
+			<div class="picto">
+				<svg viewBox ="0 0 45 45">
+					<g id="picto_F" fill="#cc3434" >
+						<path d="M19.2,11.9c3.7,0,5.2,3,5.7,4.7l4.5,14.8c0.9,3.2-3.2,4.5-4.1,1.4l-4.1-13.6h-1.2l7,24.2h-6.5v18.9c0,3.2-4.8,3.2-4.8,0v-19h-2l0,19c0,3.2-4.9,3.2-4.9,0l0-18.9H2.4l7-24.2H8.3L4.3,32.9c-1,3-5.1,1.8-4.1-1.4l4.5-14.9c0.5-1.7,2-4.7,5.7-4.7H19.2z"></path>
+						<circle cx="14.8" cy="5.5" r="5.3"></circle>
+					</g>
+				</svg>
+			</div> 
+		</div>
+		<div class="bt_sexo bt" id="topo_sexo_m">
+			<div class="picto">
+				<svg viewBox ="0 0 45 45">
+					<g id="picto_M" fill="#cc3434" >
+						<circle cx="14.5" cy="5.3" r="5.3"></circle>
+						<path d="M8.2,62c0,1.6,1.3,3,3,3c1.6,0,3-1.3,3-3l0-24.9h1.3l0,24.9c0,1.6,1.3,3,3,3s3-1.3,3-3l0-43h1.3v15.8c0,3.2,4.2,3.2,4.1,0V18.7c0-3.5-2.1-7-6.2-7l-11.9,0c-3.8,0-6.1,3.1-6.1,6.9v16.3c0,3.2,4.2,3.2,4.2,0V19h1.3L8.2,62z"></path>
+					</g>
+				</svg>
+			</div> 
+		</div> 
+		
+		<div id="campo_topo_dir" class="campo_topo">
+			<div class="bt_topo bt" id="topo_data">
+				<div class="lb1" >DATA</div>
+				<div class="lb2" >
+					<span id="topo_data1">JAN 2013</span> 
+					<span class="seta">&#10095;</span>
+					<span id="topo_data2">MAR 2015</span>
+				</div>
+			</div>
+			<div class="bt_topo bt bn" id="topo_idade">
+				<div class="lb1" >IDADE</div>
+				<div class="lb2" >
+					<span id="topo_idade1">18</span> 
+					<span class="seta">&#10095;</span>
+					<span id="topo_idade2">25</span>
+					anos
+				</div>
+			</div> 
+		</div>
+	</div> 
+	
+	<div class="drop" id="drop_logo">
+				
+	</div>
+
+	<div class="drop" id="drop_local">
+
+	</div>
+	
+	<ul id="menu_telas">
+		<li class="btg select" id="bt_tela1">
+			<img src="layout/ico_mapa.png"/>
+			<div class="lb1">LOCAL</div>
+		</li> 
+		<li class="btg" id="bt_tela2">
+			<img src="layout/ico_graficos.png"/>
+			<div class="lb1">DATA</div>
+		</li> 
+		<li class="btg" id="bt_tela3">
+			<img src="layout/ico_graficos.png"/>
+			<div class="lb1">SEXO</div>
+		</li> 
+		<li class="btg" id="bt_tela4">
+			<img src="layout/ico_graficos.png"/>
+			<div class="lb1">IDADE</div>
+		</li> 
+	</ul>  
+	
+	<div id="telas">
+	
+		<div class="tela" id="tela1"> 
+			<div id="zoom">
+				<div id="zoom_in" class="bt zoom_bt1"><img src="layout/ico_zoom_in.png"/></div> 
+				<div id="zoom_slider"></div>
+				<div id="zoom_track"></div>
+				<div id="zoom_out" class="bt zoom_bt2"><img src="layout/ico_zoom_out.png"/></div> 
+			</div> 
+			<div id="map_canvas"></div>  
+		</div>   
+
+		<div id="tela2" class="tela">   
+			<div class="titulo_tela">DATA</div>  
+			<svg id="chart_data" class='chart'></svg>  
+		</div>
+
+		<div id="tela3" class="tela">  
+			<div class="titulo_tela">SEXO</div> 
+			<svg id="chart_sexo" class='chart' width='500'> 
+				<g id='g_F'>
+					<g id="picto_F" transform="translate(-110 -65)">
+						<path  d="M19.2,11.9c3.7,0,5.2,3,5.7,4.7l4.5,14.8c0.9,3.2-3.2,4.5-4.1,1.4l-4.1-13.6h-1.2l7,24.2h-6.5v18.9
+							c0,3.2-4.8,3.2-4.8,0v-19h-2l0,19c0,3.2-4.9,3.2-4.9,0l0-18.9H2.4l7-24.2H8.3L4.3,32.9c-1,3-5.1,1.8-4.1-1.4l4.5-14.9
+							c0.5-1.7,2-4.7,5.7-4.7H19.2z"/>
+						<circle cx="14.8" cy="5.5" r="5.3"/>
+					</g> 
+				</g>
+				<g id='g_M'>
+					<g id="picto_M" transform="translate(80 -65)">
+						<circle  cx="14.5" cy="5.3" r="5.3"/>
+						<path  d="M8.2,62c0,1.6,1.3,3,3,3c1.6,0,3-1.3,3-3l0-24.9h1.3l0,24.9c0,1.6,1.3,3,3,3s3-1.3,3-3l0-43h1.3v15.8
+						c0,3.2,4.2,3.2,4.1,0V18.7c0-3.5-2.1-7-6.2-7l-11.9,0c-3.8,0-6.1,3.1-6.1,6.9v16.3c0,3.2,4.2,3.2,4.2,0V19h1.3L8.2,62z"/>
+					</g>
+				</g> 
+			</svg>  
+		</div> 
+
+		<div id="tela4" class="tela">
+			<div class="titulo_tela">IDADE</div> 
+			<svg id="chart_idade" class='chart'></svg> 
+		</div>   
+
+	</div>	
+		
+	<div id="lista">
+		 
+		<div class="barra" id="base"> 
+			<div class="bt" id="bt_vitimas">
+				<div id="n_vitimas">1.486 HOMICÍDIOS</div>
+				<div class="lb1">LISTA DE VÍTIMAS</div>
+				<img src="layout/ico_mais.png" id="ico_lista" />
+			</div> 
+			<div class="bt" id="logo_jmm"></div> 
+		</div>
+		
+		<div id="lista_vitimas" >
+			<div class="lista_cabecalho">
+				<div id="cabecalho21" class="dado1">NOME</div>
+				<div id="cabecalho22" class="dado2">SEXO</div>
+				<div id="cabecalho23" class="dado3">IDADE</div>
+				<div id="cabecalho24" class="dado4">DATA</div>
+				<div id="cabecalho25" class="dado5">LOCALIDADE</div>
+			</div> 
+		</div> 
+	
+	</div> 
+	 
+	<div id="limpar_bairro" class="limpar" style="display:none"><img src="layout/limpar.png"/></div>
+	<div id="limpar_data" class="limpar" style="display:none"><img src="layout/limpar.png"/></div>
+	<div id="limpar_sexo" class="limpar" style="display:none"><img src="layout/limpar.png"/></div>
+	<div id="limpar_idade" class="limpar" style="display:none"><img src="layout/limpar.png"/></div>  
+
+</body>
+</html>
+
+
