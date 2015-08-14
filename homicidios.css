@@ -32,16 +32,16 @@ body,html{
 } 
 /* Track */
 ::-webkit-scrollbar-track {
-	background-color:#fff;
+	background-color:#f2f0f0;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-	border:#fff 5px solid;
+	border:#f2f0f0 5px solid;
 	background-color:#ccc; 
 }::-webkit-scrollbar-thumb:hover{ 
-	background-color:#333; 
+	background-color:#999; 
 }
 
 *:focus {
@@ -52,13 +52,11 @@ body,html{
 .vermelho { color: #cc3434 } 
 
 .bt { 
-	border-right: #f2f0f0 1px solid;
+	border-right: #faf7f7 1px solid;
 	cursor: pointer;
 	background: #fff;
 }
-.bt:hover{ background-color: #faf7f7; }  
-
- 
+.bt:hover{ background-color: #f2f0f0; }   
 
 .barra{
 	position:fixed;
@@ -90,14 +88,13 @@ body,html{
 
 #topo{
 	top: 0;
-	z-index: 3;
+	z-index: 8;
 }
 
 .campo_topo{
 	position: absolute;
 	top: 0;
 	height: 100%;
-	z-index: 3;
 }
 
 #campo_topo_esq{ left:0 }
@@ -117,7 +114,7 @@ body,html{
 	white-space: nowrap;
 }
 
-.bt_topo.aberto { background-color: #f2f0f0;  background-image: url(layout/seta_c.png); }  
+.bt_topo.aberto { background-color: #faf7f7;  background-image: url(layout/seta_c.png); }  
 
 .bt_topo .lb2{
 	font-size: 13px;
@@ -161,16 +158,36 @@ body,html{
 	height: 100%;	
 }
 
-.drop{
+.drop_lista{
 	position: fixed;
-	z-index: 2;
-	left: 0;
+	z-index: 7; 
 	top: 70px;
-	background-color: #f2f0f0;
+	background-color: #faf7f7;
 	overflow: auto;
-	border-right: #dfdfdf 1px solid;
-	border-bottom: #dfdfdf 1px solid;
+	border: #faf7f7 1px solid;
+	border-top:none;
+	font-size: 14px;
+	color: #333;
 }
+
+.drop_range{
+	position: fixed;
+	z-index: 7; 
+	top: 70px;
+	height: 70px;
+	background-color: #faf7f7;
+	overflow: auto;
+	border: #dfdfdf 1px solid;
+	border-top:none;
+	font-size: 14px;
+	color: #333;
+} 
+
+
+#drop_logo{ left: 0; padding: 30px; }
+#drop_local{ left: 0; padding: 30px 0; }
+#drop_data{ right: 0; }
+#drop_idade{ right: 0; }
 
 /* TELAS */ 
 
@@ -235,6 +252,12 @@ body,html{
 	margin-bottom: 1px;
 	list-style: none;
 } 
+
+.btg svg{
+	width: 35px;
+	height: 35px;
+	margin-top: 5px;
+}
 
 .btg:hover{
 	background: #f2f0f0;
@@ -309,7 +332,58 @@ body,html{
 }
 	
 
-/* LISTA */
+/* LISTA LOCAL */
+
+.bold{
+	font-weight: 700
+}
+
+.itm{ 
+	width: 100%;
+	padding: 5px 20px;
+	height: 30px;
+	position: relative;
+	cursor: pointer;
+}
+
+.itm:hover{
+	background: #ddd;
+}
+
+.itm div{
+	position:absolute;
+	overflow:hidden; 
+	white-space:nowrap;
+}
+
+.w25{ width:25% }
+
+.itm_barra{ 
+	position:absolute;
+	left:5%;
+	top:18px;
+	height:2px;
+	background:#c00;
+	display: none;
+}
+
+.itm_barra_path{
+	position:absolute;
+	left:5%;
+	top:18px;
+	height:1px;
+	background:#eee;
+	width:90%;
+	display: none;
+}
+
+.itm_valor_lb{
+	color:#c00;
+	right: 20px;
+}
+ 
+
+/* BASE */   
 
 #lista{
 	left:0;
@@ -317,16 +391,12 @@ body,html{
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background: #f2f0f0;
+	background: #fff;
 	z-index: 6;
 } 
- 
-
-/* BASE */ 
 
 #base{
 	bottom: 0;
-	z-index: 1;
 	position: absolute;
 	top: -70px;
 	border-top: #dfdfdf 1px solid;
@@ -339,7 +409,7 @@ body,html{
 	position: absolute;
 	left: 0;
 	top: 0;
-	border-right: #f2f0f0 1px solid;
+	border-right: #faf7f7 1px solid;
 	background-image: url(layout/logo_jmm.png);
 	background-repeat: no-repeat;
 	background-position: center; 
@@ -369,6 +439,49 @@ body,html{
 	font-weight: 300;
 }
 
+
+/* LISTA DE VITIMAS */ 
+
+#lista_vitimas{
+	width: 100%;
+	overflow-y: auto;
+	overflow-x:hidden;
+	margin-top: 30px;
+}
+
+.lista_cabecalho{
+	width:100%;
+	color: #999;
+	height:30px;
+	position:absolute;
+	top: 0;
+	font-size: 11px;
+	background: #dfdfdf;
+	display: table;
+}
+
+.dado{
+	padding-left: 1%;
+	display: table-cell;
+	vertical-align: middle;
+	overflow:hidden; 
+	white-space:nowrap;
+}
+
+.dado.c1{ width:39%; }
+.dado.c2{ width:4%; text-align: center }
+.dado.c3{ width:8%; text-align: center }
+.dado.c4{ width:9%; }
+.dado.c5{ width:39%; } 
+
+.vitima{
+	width:100%;
+	height:50px;
+	color: #333;
+	font-size: 12px;
+	background: #fff;
+	display: table;
+}
 
 /* AJUSTES */
 
@@ -438,25 +551,6 @@ body,html{
 	width:100%;
 	margin-bottom:50px;	
 }
-
-.lista_cabecalho{
-	width:100%;
-	color:#ccc;
-	height:80px;
-	position:relative;  
-}
-
-.lista_cabecalho div{
-	position:absolute;
-	top:30px;
-}
-
-.dado1{ left:5%; width:33%; overflow:hidden; white-space:nowrap }
-.dado2{ left:40%; width:10%; overflow:hidden; white-space:nowrap }
-.dado3{ left:50%; width:10%; overflow:hidden; white-space:nowrap }
-.dado4{ left:60%; width:15%; overflow:hidden; white-space:nowrap }
-.dado5{ left:75%; width:25%; overflow:hidden; white-space:nowrap }
-.dadof{ right:5%; text-align:right; width:30%; overflow:hidden; white-space:nowrap }
 
 #lista_vitimas_sc{	
 	bottom:12.5%;
